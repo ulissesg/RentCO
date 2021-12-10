@@ -23,6 +23,15 @@ router.get('/list', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try{
+        const product = await Product.findById(req.params.id);
+        return res.send({ product });
+    }catch (err) {
+        return res.status(400).send({ error: 'something went worng when listing' });
+    }
+});
+
 router.get('/delete/:id', async (req, res) => {
     try {
         if (! await Product.findById(req.params.id)){
